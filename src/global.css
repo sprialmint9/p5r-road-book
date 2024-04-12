@@ -1,0 +1,52 @@
+:root {
+  @apply bg-base-200;
+}
+*,
+:before,
+:after {
+  box-sizing: border-box;
+}
+/* 移动端适配 */
+html {
+  font-size: 1rem;
+  font-size: 4.266666666666667vw;
+}
+
+/* 默认字体大小 */
+body {
+  font-size: 0.875rem;
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Segoe UI, Arial, Roboto,
+    PingFang SC, Hiragino Sans GB, Microsoft Yahei, sans-serif;
+}
+
+html,
+body,
+#app,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (min-width: 677px) {
+  html {
+    /* 手机端基准值 */
+    font-size: 16px !important;
+  }
+
+  /* body {
+    max-width: 375px;
+  } */
+}
+
+@keyframes button-pop {
+  0% {
+    transform: scale(var(--btn-focus-scale, 0.95));
+  }
+  40% {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1);
+  }
+}
