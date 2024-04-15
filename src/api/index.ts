@@ -7,7 +7,8 @@ enum Api {
   SUMMARY = 'json/summary.json',
 }
 
-export const fetchDbInfo = () => fetcher<DbInfoModel>(ApiUrl + Api.DB);
-export const fetchDateIndex = () => fetcher<DateIndexModel[]>(ApiUrl + Api.DATE_INDEX);
-export const fetchDateEvents = () => fetcher<DayModel>(ApiUrl + Api.DATE_EVENTS);
-export const fetchSummary = () => fetcher<SummaryModel>(ApiUrl + Api.SUMMARY);
+export const fetchDbInfo = () => fetcher<DbInfoModel>(ApiUrl + Api.DB, { method: 'GET' });
+export const fetchDateIndex = () =>
+  fetcher<DateIndexModel[]>(ApiUrl + Api.DATE_INDEX, { method: 'GET' });
+export const fetchDateEvents = () => fetcher<DayModel>(ApiUrl + Api.DATE_EVENTS, { method: 'GET' });
+export const fetchSummary = () => fetcher<SummaryModel>(ApiUrl + Api.SUMMARY, { method: 'GET' });

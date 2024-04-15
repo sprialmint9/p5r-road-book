@@ -52,9 +52,31 @@ export const insertData = async (tableName: string, data: InsertData) => {
   await tx.done;
 };
 
-export const getData = async (tableName: string, key: string) => {
+export const setKeyVal = async (tableName: string, key: string, val: unknown) => {
+  if (!db) {
+    throw new Error('need init idb before');
+  }
+  db.put(tableName, val, key);
+};
+
+export const getData = async (tableName: string, key: string | number) => {
   if (!db) {
     throw new Error('need init idb before');
   }
   return db.get(tableName, key);
+};
+
+export const getAllData = async (tableName: string) => {
+  if (!db) {
+    throw new Error('need init idb before');
+  }
+  return db.getAll(tableName);
+};
+
+export const isEmptyTable = async (tableName: string) => {
+  if (!db) {
+    throw new Error('need init idb before');
+  }
+  const len = await db.count(tableName);
+  return len === 0;
 };

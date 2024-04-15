@@ -1,39 +1,36 @@
 import { memo } from 'react';
+import { useDateEventStore } from '@/store';
+
+const EventDetail = memo((props: { list?: string[] }) => {
+  if (props.list && props.list.length > 0) {
+    return (
+      <>
+        {props.list.map((item, key) => (
+          <p key={key}>{item}</p>
+        ))}
+      </>
+    );
+  } else {
+    return <p> - </p>;
+  }
+});
 
 const EventCard = memo(() => {
+  const dayInfo = useDateEventStore(state => state.selectInfo?.info || ({} as DayItem));
   return (
     <>
       <div className="collapse bg-base-100 mb-4 b-rounded-2 shadow-md collapse-plus">
         <input type="checkbox" />
         <div className="collapse-title text-xl font-medium">白天</div>
         <div className="collapse-content">
-          <p>
-            hello Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum necessitatibus
-            consequatur quis, sint a velit, dicta molestias, magni delectus animi eligendi veniam
-            quo corporis neque repellendus aspernatur mollitia. Distinctio, tempora!{' '}
-          </p>
+          <EventDetail list={dayInfo.day} />
         </div>
       </div>
       <div className="collapse bg-base-100 mb-4 b-rounded-2 shadow-md collapse-plus">
         <input type="checkbox" />
         <div className="collapse-title text-xl font-medium">夜晚</div>
         <div className="collapse-content">
-          <p>
-            hello Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum necessitatibus
-            consequatur quis, sint a velit, dicta molestias, magni delectus animi eligendi veniam
-            quo corporis neque repellendus aspernatur mollitia. Distinctio, tempora!{' '}
-          </p>
-          <p>
-            hello Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum necessitatibus
-            consequatur quis, sint a velit, dicta molestias, magni delectus animi eligendi veniam
-            quo corporis neque repellendus aspernatur mollitia. Distinctio, tempora!{' '}
-          </p>
-          <p>
-            hello Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum necessitatibus
-            consequatur quis, sint a velit, dicta molestias, magni delectus animi eligendi veniam
-            quo corporis neque repellendus aspernatur mollitia. Distinctio, tempora!{' '}
-          </p>
-          <p>hello</p>
+          <EventDetail list={dayInfo.night} />
         </div>
       </div>
     </>

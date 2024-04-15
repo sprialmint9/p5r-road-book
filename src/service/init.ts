@@ -1,5 +1,5 @@
-import { dbConfig, dayTableName, summaryTableName, indexTableName } from '@/config';
-import { dbInit, insertData } from '@/service/idb';
+import { dbConfig, dayTableName, summaryTableName, indexTableName, userTableName } from '@/config';
+import { dbInit, insertData, getAllData, getData, isEmptyTable, setKeyVal } from '@/service/idb';
 import { fetchDateEvents, fetchSummary, fetchDbInfo, fetchDateIndex } from '@/api';
 import { store } from '@/store';
 
@@ -11,13 +11,32 @@ export const initDb = async () => {
   };
   const dbInstance = await dbInit(currentCfg);
   if (dbInstance) {
-    const initData = store(state => state.initData);
     const indexInfo = await fetchDateIndex();
     const dayData = await fetchDateEvents();
     const summaryData = await fetchSummary();
     await insertData(indexTableName, indexInfo);
     await insertData(dayTableName, dayData);
     await insertData(summaryTableName, summaryData);
-    initData();
   }
+  const indexInfo = await getAllData(indexTableName);
+  let selectInfo = await getData(userTableName, 'selectInfo');
+  if (!selectInfo || (await isEmptyTable(userTableName))) {
+    const defaultIndex = indexInfo[0];
+    const dayIndex = defaultIndex.days[0];
+    const dayInfo = await getData(dayTableName, dayIndex.id);
+    const summaryInfo = await getData(summaryTableName, defaultIndex.month);
+    selectInfo = {
+      monthId: 0,
+      dayId: defaultIndex.days[0].id,
+      info: dayInfo,
+      summary: summaryInfo,
+    };
+    await Promise.all(
+      Object.keys(selectInfo).map(key => setKeyVal(userTableName, key, selectInfo[key]))
+    );
+  }
+  const { setState, getState } = store;
+  setState({ selectInfo });
+  setState({ dateIndexMonth: indexInfo.map((v: DateIndexModel) => v.month) });
+  getState().setDateIndexDays(selectInfo.monthId);
 };

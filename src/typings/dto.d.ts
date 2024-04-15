@@ -24,10 +24,9 @@ interface SummaryItem {
   summary: string[];
 }
 
-type SelectInfo = Partial<{
-  month: number;
-  day: number;
+interface SelectInfo {
+  monthId: number;
   dayId: string;
   info: DayItem;
   summary: SummaryItem;
-} | null>;
+}

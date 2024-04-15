@@ -16,7 +16,7 @@ export const dbConfig = {
     {
       name: indexTableName,
       option: {
-        keyPath: 'month',
+        keyPath: 'id',
         autoIncrement: false,
       },
     },
