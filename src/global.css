@@ -33,10 +33,6 @@ body,
     /* 手机端基准值 */
     font-size: 16px !important;
   }
-
-  /* body {
-    max-width: 375px;
-  } */
 }
 
 @keyframes button-pop {

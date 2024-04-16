@@ -4,16 +4,16 @@ import logo from '@/assets/react.svg';
 const Navbar = memo(() => {
   return (
     <>
-      <div className="navbar bg-base-100 p-2 min-h-14 fixed z-1">
+      <div className="navbar bg-base-100 p-2 min-h-14 fixed z-1 lg:w-1000px ml-a mr-a left-0 right-0 shadow-sm">
         <img src={logo} alt="react" className="flex-none mr-3 w-8 h-8" />
-        <div className="flex-auto flex-shrink-0 text-center">p5r</div>
+        <div className="flex-auto flex-shrink-0 text-center">P5R RoadBook</div>
         <div className="flex-none">
-          <button type="button" className="btn btn-ghost btn-sm font-size-5">
-            <i className="inline-block i-material-symbols-search"></i>
-          </button>
+          <label htmlFor="descModal" className="btn btn-ghost btn-sm font-size-5">
+            <i className="i-material-symbols-info-outline-rounded"></i>
+          </label>
         </div>
       </div>
-      <div className="h-14"></div>
+      <div className="h-14 lg:w-1000px ml-a mr-a"></div>
     </>
   );
 });

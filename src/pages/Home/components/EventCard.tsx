@@ -20,14 +20,14 @@ const EventCard = memo(() => {
   return (
     <>
       <div className="collapse bg-base-100 mb-4 b-rounded-2 shadow-md collapse-plus">
-        <input type="checkbox" />
+        <input type="checkbox" value={1} defaultChecked />
         <div className="collapse-title text-xl font-medium">白天</div>
         <div className="collapse-content">
           <EventDetail list={dayInfo.day} />
         </div>
       </div>
       <div className="collapse bg-base-100 mb-4 b-rounded-2 shadow-md collapse-plus">
-        <input type="checkbox" />
+        <input type="checkbox" value={2} defaultChecked />
         <div className="collapse-title text-xl font-medium">夜晚</div>
         <div className="collapse-content">
           <EventDetail list={dayInfo.night} />

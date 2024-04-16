@@ -1,3 +1,8 @@
+interface DbIndexConfig {
+  name: string;
+  indexName: string;
+}
+
 interface DbConfig {
   name: string;
   version: number;
@@ -7,6 +12,7 @@ interface DbConfig {
       keyPath: string;
       autoIncrement?: boolean;
     };
+    index?: DbIndexConfig[];
   }[];
 }
 
@@ -17,6 +23,8 @@ interface DayItem {
   day: string[];
   night: string[];
   id: string;
+  next: string;
+  prev: string;
 }
 
 interface SummaryItem {

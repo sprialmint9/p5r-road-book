@@ -25,7 +25,17 @@ export const dbInit = async (dbCfg: DbConfig): Promise<DBInstance> => {
       if (!dbCfg.table) return null;
       if (!oldVersion) {
         for (let i = 0; i < dbCfg.table.length; i++) {
-          db.createObjectStore(dbCfg.table[i].name, dbCfg.table[i]?.option || {});
+          const currentStore = db.createObjectStore(
+            dbCfg.table[i].name,
+            dbCfg.table[i]?.option || {}
+          );
+          const index = dbCfg.table[i].index || [];
+          if (index) {
+            for (let j = 0; j < index.length; j++) {
+              const item = index[j];
+              currentStore.createIndex(item.name, item.indexName);
+            }
+          }
         }
       }
     },
@@ -79,4 +89,11 @@ export const isEmptyTable = async (tableName: string) => {
   }
   const len = await db.count(tableName);
   return len === 0;
+};
+
+export const getKeyByIndex = async (tableName: string, index: string, key: IDBValidKey) => {
+  if (!db) {
+    throw new Error('need init idb before');
+  }
+  return await db.getFromIndex(tableName, index, key);
 };

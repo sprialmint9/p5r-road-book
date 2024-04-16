@@ -19,6 +19,12 @@ export const dbConfig = {
         keyPath: 'id',
         autoIncrement: false,
       },
+      index: [
+        {
+          name: 'month',
+          indexName: 'month',
+        },
+      ],
     },
     {
       name: dayTableName,

@@ -1,68 +1,48 @@
+import { useEffect, useState } from 'react';
 import { useDateEventStore } from '@/store';
-
-const MonthSelect = () => {
-  // hook 内使用了useRef和 useEffect，所以不需要再次定义
-  const selectedMonth = useDateEventStore(state => state.selectInfo?.monthId || 0);
-  const monthList = useDateEventStore(state => state.dateIndexMonth || []);
-  const setSelectInfoItem = useDateEventStore(state => state.setSelectInfoItem);
-  const handleSelectMonth = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const month = +e.target.value;
-    setSelectInfoItem('monthId', month);
-  };
-
-  return (
-    <label className="label">
-      <select
-        className="select select-bordered select-xs w-15 text-sm"
-        value={selectedMonth}
-        onChange={e => handleSelectMonth(e)}
-      >
-        <option value={''}>D</option>
-        {monthList.map((item, key) => (
-          <option value={key} key={key}>
-            {item}
-          </option>
-        ))}
-      </select>
-      <span className="label-text-alt ml-1 text-sm">月</span>
-    </label>
-  );
-};
-
-const DaySelect = () => {
-  // hook 内使用了useRef和 useEffect，所以不需要再次定义
-  const selectedDay = useDateEventStore(state => state.selectInfo?.dayId || '');
-  const days = useDateEventStore(state => state.dateIndexDays || []);
-  const setSelectInfoItem = useDateEventStore(state => state.setSelectInfoItem);
-  const handleSelectDay = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const dayId = e.target.value;
-    setSelectInfoItem('dayId', dayId);
-  };
-
-  return (
-    <label className="label">
-      <select
-        className="select select-bordered select-xs w-15 text-sm"
-        value={selectedDay}
-        onChange={e => handleSelectDay(e)}
-      >
-        <option value={''}>M</option>
-        {days.map(item => (
-          <option value={item.id} key={item.id}>
-            {item.day}
-          </option>
-        ))}
-      </select>
-      <span className="label-text-alt ml-1 text-sm">日</span>
-    </label>
-  );
-};
+import DaySelect from './DaySelect';
+import MonthSelect from './MonthSelect';
 
 const DateSwipe = () => {
   const dayInfo = useDateEventStore(state => state.selectInfo?.info || ({} as DayItem));
+  const quickToggle = useDateEventStore(state => state.quickToggle);
+  const [stepState, setStepState] = useState([false, false]);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      switch (e.code) {
+        case 'ArrowLeft': // 向左事件 - 位置减减
+          quickToggle(dayInfo.prev);
+          setStepState([true, false]);
+          break;
+        case 'ArrowRight': // 向右事件 - 位置加加
+          quickToggle(dayInfo.next);
+          setStepState([false, true]);
+          break;
+      }
+    };
+    window.addEventListener('keydown', onKeyDown); // 添加全局事件
+    return () => {
+      window.removeEventListener('keydown', onKeyDown); // 销毁
+    };
+  }, [dayInfo, quickToggle]);
+
+  useEffect(() => {
+    const onKeyUp = () => setStepState([false, false]);
+    window.addEventListener('keyup', onKeyUp); // 添加全局事件
+    return () => {
+      window.removeEventListener('keyup', onKeyUp); // 销毁
+    };
+  }, [setStepState]);
+
   return (
-    <div className="bg-base-100 ml-a mr-a mb-4 b-rounded-2 shadow-md flex items-center overflow-hidden">
-      <div className="flex items-center justify-center mr-a w-8 self-stretch font-size-5 active:bg-base-200">
+    <div className="bg-base-100 mb-4 b-rounded-2 shadow-md flex items-center overflow-hidden">
+      <div
+        className={`flex items-center justify-center mr-a w-12 self-stretch font-size-5 active:bg-base-200 ${
+          stepState[0] ? 'bg-base-200' : ''
+        }`}
+        onClick={() => quickToggle(dayInfo.prev)}
+      >
         <i className="i-material-symbols-arrow-back-ios c-black"></i>
       </div>
       <div className="flex-auto flex flex-col items-center">
@@ -70,13 +50,18 @@ const DateSwipe = () => {
           <MonthSelect />
           <DaySelect />
         </div>
-        <div className="text-center pt-3 pb-4 w-24">
+        <label className="text-center pt-3 pb-4 w-24 cursor-pointer" htmlFor="summaryModal">
           <div className="block text-8">{dayInfo.dateMonth || '-'}</div>
           <div className="divider mt-1 mb-1"></div>
           <div className="block text-14">{dayInfo.dateDay || '-'}</div>
-        </div>
+        </label>
       </div>
-      <div className="flex items-center justify-center ml-a w-8 self-stretch font-size-5 active:bg-base-200">
+      <div
+        className={`flex items-center justify-center ml-a w-12 self-stretch font-size-5 active:bg-base-200 ${
+          stepState[1] ? 'bg-base-200' : ''
+        }`}
+        onClick={() => quickToggle(dayInfo.next)}
+      >
         <i className="i-material-symbols-arrow-forward-ios c-black"></i>
       </div>
     </div>
