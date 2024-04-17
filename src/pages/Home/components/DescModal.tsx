@@ -5,7 +5,7 @@ const DescModal: FC = () => {
       <input type="checkbox" id="descModal" className="modal-toggle" />
       <div className="modal sm:modal-middle modal-bottom">
         <div className="modal-box">
-          <h3 className="font-bold text-lg mt-0 mb-1">说明</h3>
+          <h3 className="font-bold text-lg mt-0 mb-1 select-none">说明</h3>
           <div className="h-90 -mr-6 -ml-6 pl-6 pr-6 overflow-x-hidden overflow-y-scroll prose sm:lh-loose lh-normal">
             <h4>信息来源</h4>
             <p>

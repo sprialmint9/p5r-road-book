@@ -7,7 +7,7 @@ function Home() {
   return (
     <>
       <Navbar />
-      <div className="p-4 sm:grid sm:grid-cols-2 sm:gap-4 lg:w-1000px ml-a mr-a">
+      <div className="pl-4 pr-4 pt-18 sm:grid sm:grid-cols-2 sm:gap-4 lg:w-1000px ml-a mr-a">
         <div>
           <DateSwipe />
         </div>

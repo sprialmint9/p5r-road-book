@@ -13,7 +13,7 @@ const DaySelect = () => {
   return (
     <label className="label">
       <select
-        className="select select-bordered select-xs w-15 text-sm"
+        className="select select-bordered select-xs w-15 text-sm c-black"
         value={selectedDay}
         onChange={e => handleSelectDay(e)}
       >

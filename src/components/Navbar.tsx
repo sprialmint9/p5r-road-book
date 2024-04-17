@@ -13,7 +13,6 @@ const Navbar = memo(() => {
           </label>
         </div>
       </div>
-      <div className="h-14 lg:w-1000px ml-a mr-a"></div>
     </>
   );
 });

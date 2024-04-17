@@ -36,9 +36,9 @@ const DateSwipe = () => {
   }, [setStepState]);
 
   return (
-    <div className="bg-base-100 mb-4 b-rounded-2 shadow-md flex items-center overflow-hidden">
+    <div className="bg-base-100 mb-4 b-rounded-2 shadow-md flex items-center overflow-hidden md:sticky md:top-18">
       <div
-        className={`flex items-center justify-center mr-a w-12 self-stretch font-size-5 active:bg-base-200 ${
+        className={`flex items-center justify-center mr-a w-12 self-stretch cursor-pointer select-none font-size-5 active:bg-base-200 ${
           stepState[0] ? 'bg-base-200' : ''
         }`}
         onClick={() => quickToggle(dayInfo.prev)}
@@ -51,7 +51,7 @@ const DateSwipe = () => {
           <DaySelect />
         </div>
         <label
-          className="text-center p-3 pb-0 pt-1 mb-3 w-24 cursor-pointer active:bg-base-200 active:b-rounded-2"
+          className="text-center p-3 pb-0 pt-1 mb-3 w-24 cursor-pointer select-none active:bg-base-200 active:b-rounded-2"
           htmlFor="summaryModal"
         >
           <div className="block text-8">{dayInfo.dateMonth || '-'}</div>
@@ -60,7 +60,7 @@ const DateSwipe = () => {
         </label>
       </div>
       <div
-        className={`flex items-center justify-center ml-a w-12 self-stretch font-size-5 active:bg-base-200 ${
+        className={`flex items-center justify-center ml-a w-12 cursor-pointer select-none self-stretch font-size-5 active:bg-base-200 ${
           stepState[1] ? 'bg-base-200' : ''
         }`}
         onClick={() => quickToggle(dayInfo.next)}
