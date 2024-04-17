@@ -2,15 +2,12 @@
   "name": "p5r-road-book",
   "private": true,
   "version": "0.0.1",
-  "homepage": "https://github.com/gzw95322/link-s-map",
-  "bugs": {
-    "url": "https://github.com/gzw95322/link-s-map/issues"
-  },
+  "homepage": "https://github.com/gzw95322/p5r-road-book",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gzw95322/link-s-map.git"
+    "url": "git+https://github.com/sprialmint9/p5r-road-book.git"
   },
-  "license": "MIT",
+  "license": "GPL-3.0-only",
   "author": {
     "name": "sprialmint",
     "email": "gzw95322@qq.com",

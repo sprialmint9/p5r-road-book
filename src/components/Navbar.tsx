@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import logo from '@/assets/react.svg';
+import logo from '@/assets/icon.svg';
 
 const Navbar = memo(() => {
   return (

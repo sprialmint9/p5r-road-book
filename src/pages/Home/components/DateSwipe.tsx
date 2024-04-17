@@ -50,7 +50,10 @@ const DateSwipe = () => {
           <MonthSelect />
           <DaySelect />
         </div>
-        <label className="text-center pt-3 pb-4 w-24 cursor-pointer" htmlFor="summaryModal">
+        <label
+          className="text-center p-3 pb-0 pt-1 mb-3 w-24 cursor-pointer active:bg-base-200 active:b-rounded-2"
+          htmlFor="summaryModal"
+        >
           <div className="block text-8">{dayInfo.dateMonth || '-'}</div>
           <div className="divider mt-1 mb-1"></div>
           <div className="block text-14">{dayInfo.dateDay || '-'}</div>
