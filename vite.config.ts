@@ -134,6 +134,13 @@ export default defineConfig({
             handler: 'CacheFirst',
             options: {
               cacheName: 'site-js',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
             },
           },
           {
@@ -141,6 +148,13 @@ export default defineConfig({
             handler: 'CacheFirst',
             options: {
               cacheName: 'site-css',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
             },
           },
           {
@@ -148,6 +162,13 @@ export default defineConfig({
             handler: 'CacheFirst',
             options: {
               cacheName: 'site-assets',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
             },
           },
         ],
