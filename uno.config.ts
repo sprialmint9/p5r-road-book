@@ -6,5 +6,12 @@ export default defineConfig({
   content: {
     filesystem: ['**/*.{html,js,ts,jsx,tsx,vue,svelte,astro}'],
   },
-  presets: [presetUno(), presetTypography(), presetIcons(), presetDaisy()],
+  presets: [
+    presetUno(),
+    presetTypography(),
+    presetIcons(),
+    presetDaisy({
+      themes: false,
+    }),
+  ],
 });

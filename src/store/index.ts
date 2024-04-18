@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { produce } from 'immer';
-import { indexTableName, dayTableName, summaryTableName } from '@/config';
-import { getData, getKeyByIndex } from '@/service/idb';
+import { indexTableName, dayTableName, summaryTableName, userTableName } from '@/config';
+import { getData, getKeyByIndex, setKeyVal } from '@/service/idb';
 
 interface State {
   dateIndexMonth: number[] | null;
@@ -16,6 +16,7 @@ interface Actions {
   setDayInfo: (dayId: string) => void;
   quickToggle: (dayId: string) => void;
   setSelectInfoItem<K extends keyof SelectInfo>(key: K, value: SelectInfo[K]): void;
+  updateDbInfo: () => void;
 }
 
 export const store = create(
@@ -48,6 +49,7 @@ export const store = create(
             state.selectInfo.summary = summaryInfo;
           })
         );
+        store.getState().updateDbInfo();
       },
       setDayInfo: async dayId => {
         const dayInfo = await getData(dayTableName, dayId);
@@ -58,6 +60,7 @@ export const store = create(
             state.selectInfo.dayId = dayId;
           })
         );
+        store.getState().updateDbInfo();
       },
       quickToggle: async (dayId: string) => {
         await store.getState().setDayInfo(dayId);
@@ -77,6 +80,14 @@ export const store = create(
         }
         if (key === 'dayId') {
           await store.getState().setDayInfo('' + value);
+        }
+      },
+      updateDbInfo: async () => {
+        const selectInfo = store.getState().selectInfo;
+        if (selectInfo) {
+          await Promise.all(
+            Object.entries(selectInfo).map(([key, value]) => setKeyVal(userTableName, key, value))
+          );
         }
       },
     };

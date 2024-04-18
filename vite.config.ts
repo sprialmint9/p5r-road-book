@@ -22,6 +22,16 @@ export default defineConfig({
       key: fs.readFileSync(path.join(__dirname, 'keys/myapp.dev+4-key.pem')),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-router-dom'],
+          base: ['idb', 'immer', 'zustand'],
+        },
+      },
+    },
+  },
   plugins: [
     react(),
     UnoCSS(),
@@ -104,12 +114,12 @@ export default defineConfig({
             sizes: '512x512',
             type: 'image/png',
           },
-          // {
-          //   src: '/icons/512.png',
-          //   sizes: '512x512',
-          //   type: 'image/png',
-          //   purpose: 'any',
-          // },
+          {
+            src: '/icons/512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any',
+          },
         ],
         screenshots: [
           {

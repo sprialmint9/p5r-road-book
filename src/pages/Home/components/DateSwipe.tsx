@@ -43,7 +43,7 @@ const DateSwipe = () => {
         }`}
         onClick={() => quickToggle(dayInfo.prev)}
       >
-        <i className="i-material-symbols-arrow-back-ios c-black"></i>
+        <i className="i-material-symbols-arrow-back-ios"></i>
       </div>
       <div className="flex-auto flex flex-col items-center">
         <div className="flex">
@@ -65,7 +65,7 @@ const DateSwipe = () => {
         }`}
         onClick={() => quickToggle(dayInfo.next)}
       >
-        <i className="i-material-symbols-arrow-forward-ios c-black"></i>
+        <i className="i-material-symbols-arrow-forward-ios"></i>
       </div>
     </div>
   );

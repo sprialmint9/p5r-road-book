@@ -9,27 +9,33 @@ const DescModal: FC = () => {
           <div className="h-90 -mr-6 -ml-6 pl-6 pr-6 overflow-x-hidden overflow-y-scroll prose sm:lh-loose lh-normal">
             <h4>信息来源</h4>
             <p>
-              网站信息在通过阅读
+              该网站信息总结自
               <a href="https://b23.tv/d7YFQwi">
                 P5R一周目COOP MAX全AWARD白金攻略日程安排《女神异闻录5皇家版》
               </a>
-              后，总结而来，部分信息取自该文章，不会商用，仅供学习和技术经验交流使用，如有侵权请联系我删除。
+              的内容，部分信息参考该文章，仅供学习和技术经验交流使用，不涉及商业用途。如有侵权，请联系我删除。
             </p>
             <h4>技术概要</h4>
             <ul>
-              <li>使用了PWA技术，支持离线使用（ios可能不会及时生效），在联网状态会自动升级</li>
-              <li>数据首次请求后，会存储在IndexedDB中。</li>
+              <li>
+                该网站采用了PWA技术，缓存策略为所有静态资源为CacheFirst，支持离线使用（iOS可能存在延迟）。
+              </li>
+              <li>更新策略为autoUpdate，在联网状态下会自动升级。</li>
+              <li>
+                数据缓存使用的是IndexedDB，在首次请求后，接口请求的数据和操作信息都会存储在IndexedDB中。
+              </li>
             </ul>
-            <h4>使用指南</h4>
+            <h4>使用说明</h4>
             <ul>
               <li>
-                点击时间两端的左右箭头可以切换上一天和下一天的数据，同时，点击键盘
-                <kbd className="kbd kbd-sm">◀︎</kbd>或者<kbd className="kbd kbd-sm">▶︎</kbd>
-                也可以快速切换。
+                点击时间两端的左右箭头可切换至上一天或下一天的数据，同时，您也可以使用键盘上的
+                <kbd className="kbd kbd-sm">◀︎</kbd>或者
+                <kbd className="kbd kbd-sm">▶︎</kbd>进行快速切换。
               </li>
-              <li>点击时间可以查看当月的Coop达成等相关信息。</li>
-              <li>点击时间上面的选择框可以跳转到具体的时间。</li>
-              <li>白天和夜晚可以展开/收起。</li>
+              <li>点击时间可查看当月的Coop达成等相关信息。</li>
+              <li>点击时间上方的选择框可直接跳转至具体的时间。</li>
+              <li>可展开或收起白天和夜晚数据。</li>
+              <li>每次操作会保存当前选择的时间，在下次访问时，会自动回显上一次选择的时间信息。</li>
             </ul>
           </div>
           <div className="modal-action mt-2 block">

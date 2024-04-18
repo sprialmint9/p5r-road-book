@@ -18,8 +18,8 @@ export const initDb = async () => {
     await insertData(dayTableName, dayData);
     await insertData(summaryTableName, summaryData);
   }
-  const indexInfo = await getAllData(indexTableName);
-  let selectInfo = await getData(userTableName, 'selectInfo');
+  const indexInfo = await getAllData<DateIndexModel[]>(indexTableName);
+  let selectInfo = await getAllData<SelectInfo>(userTableName, true);
   if (!selectInfo || (await isEmptyTable(userTableName))) {
     const defaultIndex = indexInfo[0];
     const dayIndex = defaultIndex.days[0];
@@ -32,7 +32,7 @@ export const initDb = async () => {
       summary: summaryInfo,
     };
     await Promise.all(
-      Object.keys(selectInfo).map(key => setKeyVal(userTableName, key, selectInfo[key]))
+      Object.entries(selectInfo).map(([key, value]) => setKeyVal(userTableName, key, value))
     );
   }
   const { setState, getState } = store;

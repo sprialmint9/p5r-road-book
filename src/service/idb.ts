@@ -76,12 +76,32 @@ export const getData = async (tableName: string, key: string | number) => {
   return db.get(tableName, key);
 };
 
-export const getAllData = async (tableName: string) => {
+export function getAllData(
+  tableName: string,
+  keyVal?: boolean
+): Promise<Record<string | number, unknown>>;
+export function getAllData<T>(tableName: string, keyVal?: boolean): Promise<T>;
+export async function getAllData<T>(
+  tableName: string,
+  keyVal: boolean = false
+): Promise<Record<string | number, unknown> | T> {
   if (!db) {
     throw new Error('need init idb before');
   }
-  return db.getAll(tableName);
-};
+
+  if (keyVal) {
+    const data: { [key: string]: T } = {};
+    let cursor = await db.transaction(tableName).store.openCursor();
+
+    while (cursor) {
+      data[String(cursor.key)] = cursor.value; // 将 cursor.key 转换为字符串类型
+      cursor = await cursor.continue();
+    }
+
+    return data;
+  }
+  return db.getAll(tableName) as T;
+}
 
 export const isEmptyTable = async (tableName: string) => {
   if (!db) {
