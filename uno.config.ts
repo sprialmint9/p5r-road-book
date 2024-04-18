@@ -6,6 +6,7 @@ export default defineConfig({
   content: {
     filesystem: ['**/*.{html,js,ts,jsx,tsx,vue,svelte,astro}'],
   },
+  rules: [['webkit-sticky', { position: '-webkit-sticky' }]],
   presets: [
     presetUno(),
     presetTypography(),

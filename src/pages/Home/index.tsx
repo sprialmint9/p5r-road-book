@@ -8,7 +8,7 @@ function Home() {
     <>
       <Navbar />
       <div className="pl-4 pr-4 pt-18 sm:grid sm:grid-cols-2 sm:gap-4 lg:w-1000px ml-a mr-a">
-        <div className="sticky">
+        <div className="md:webkit-sticky md:sticky">
           <DateSwipe />
         </div>
         <div>
