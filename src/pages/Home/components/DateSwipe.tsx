@@ -36,7 +36,7 @@ const DateSwipe = () => {
   }, [setStepState]);
 
   return (
-    <div className="bg-base-100 mb-4 b-rounded-2 shadow-md flex items-center overflow-hidden md:sticky md:top-18">
+    <div className="bg-base-100 mb-4 b-rounded-2 shadow-md flex items-center overflow-hidden md:webkit-sticky md:sticky md:top-18">
       <div
         className={`flex items-center justify-center mr-a w-12 self-stretch cursor-pointer select-none font-size-5 active:bg-base-200 ${
           stepState[0] ? 'bg-base-200' : ''
