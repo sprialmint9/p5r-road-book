@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import logo from '@/assets/icon.svg';
+import { Link } from 'react-router-dom';
 
 const Navbar = memo(() => {
   return (
@@ -11,6 +12,9 @@ const Navbar = memo(() => {
           <label htmlFor="descModal" className="btn btn-ghost btn-sm font-size-5">
             <i className="i-material-symbols-info-outline-rounded"></i>
           </label>
+          <Link to="bookmarks" className="btn btn-ghost btn-sm font-size-5">
+            <i className="i-material-symbols-collections-bookmark-outline-sharp"></i>
+          </Link>
         </div>
       </div>
     </>

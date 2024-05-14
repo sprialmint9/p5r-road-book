@@ -38,3 +38,10 @@ interface SelectInfo {
   info: DayItem;
   summary: SummaryItem;
 }
+
+interface MarkInfo {
+  dayId?: string;
+  title?: string;
+  content: string;
+  id: string;
+}

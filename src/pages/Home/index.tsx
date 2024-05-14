@@ -3,6 +3,7 @@ import DateSwipe from './components/DateSwipe';
 import EventCard from './components/EventCard';
 import Summary from './components/Summary';
 import DescModal from './components/DescModal';
+import Tooltip from '../Bookmarks/components/Tooltip';
 function Home() {
   return (
     <>
@@ -17,6 +18,7 @@ function Home() {
       </div>
       <Summary />
       <DescModal />
+      <Tooltip></Tooltip>
     </>
   );
 }
