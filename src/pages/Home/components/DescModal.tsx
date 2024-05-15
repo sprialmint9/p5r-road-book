@@ -10,7 +10,7 @@ const DescModal: FC = () => {
             <h4>信息来源</h4>
             <p>
               该网站信息总结自
-              <a href="https://b23.tv/d7YFQwi">
+              <a href="https://b23.tv/d7YFQwi" target="_blank">
                 P5R一周目COOP MAX全AWARD白金攻略日程安排《女神异闻录5皇家版》
               </a>
               的内容，部分信息参考该文章，仅供学习和技术经验交流使用，不涉及商业用途。如有侵权，请联系我删除。
@@ -25,6 +25,12 @@ const DescModal: FC = () => {
                 数据缓存使用的是IndexedDB，在首次请求后，接口请求的数据和操作信息都会存储在IndexedDB中。
               </li>
             </ul>
+            <h4>源码</h4>
+            <p>
+              <a href="https://github.com/sprialmint9/p5r-road-book" target="_blank">
+                p5r-road-book
+              </a>
+            </p>
             <h4>使用说明</h4>
             <ul>
               <li>

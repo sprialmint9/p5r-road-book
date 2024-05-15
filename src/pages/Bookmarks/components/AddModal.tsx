@@ -1,5 +1,5 @@
 import { FC } from 'react';
-const DescModal: FC = () => {
+const AddModal: FC = () => {
   return (
     <>
       <input type="checkbox" id="addMarkModal" className="modal-toggle" />
@@ -30,4 +30,4 @@ const DescModal: FC = () => {
   );
 };
 
-export default DescModal;
+export default AddModal;

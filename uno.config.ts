@@ -1,6 +1,7 @@
 import { defineConfig, presetTypography, presetUno } from 'unocss';
 import presetIcons from '@unocss/preset-icons';
 import { presetDaisy } from '@unscatty/unocss-preset-daisy';
+import presetSafeArea from '@yeungkc/unocss-preset-safe-area';
 
 export default defineConfig({
   content: {
@@ -14,5 +15,6 @@ export default defineConfig({
     presetDaisy({
       themes: false,
     }),
+    presetSafeArea(),
   ],
 });

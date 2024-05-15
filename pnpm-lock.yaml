@@ -67,6 +67,9 @@ devDependencies:
   '@vitejs/plugin-react-swc':
     specifier: ^3.6.0
     version: 3.6.0(vite@4.5.3)
+  '@yeungkc/unocss-preset-safe-area':
+    specifier: ^0.0.5
+    version: 0.0.5
   eslint:
     specifier: ^8.57.0
     version: 8.57.0
@@ -3103,6 +3106,13 @@ packages:
       estree-walker: 3.0.3
       loupe: 2.3.7
       pretty-format: 29.7.0
+    dev: true
+
+  /@yeungkc/unocss-preset-safe-area@0.0.5:
+    resolution: {integrity: sha512-IoJCEqRqm4OdPyvtfickkuhkVNGp970kXCQL7M+nt/wO6H/cci+ziUBntwJyZtcrDTwNvEi/nm1GGrrqePt9qQ==}
+    dependencies:
+      '@unocss/core': 0.58.9
+      '@unocss/preset-mini': 0.58.9
     dev: true
 
   /JSONStream@1.3.5:
