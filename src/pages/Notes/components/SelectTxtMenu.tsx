@@ -1,23 +1,30 @@
 import React, { useRef, useState, useEffect, ReactNode } from 'react';
-
+import { copyText } from '@/utils';
+import { useToast } from '@/hooks';
 const SelectTxtMenu: React.FC<{ children: ReactNode }> = ({ children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [showMenu, setShowMenu] = useState(false);
   const [menuStyle, setMenuStyle] = useState('translate-y-50vh');
   const selectTxt = useRef('');
+  const { showToast } = useToast();
   const menu = [
     {
       title: '收藏',
       icon: 'i-material-symbols-bookmark-add-outline-sharp',
       action: () => {
         console.log('收藏');
+        showToast('收藏成功', 'success');
       },
     },
     {
       title: '复制',
       icon: 'i-material-symbols-content-copy-outline-sharp',
-      action: () => {
-        console.log('复制');
+      action: async () => {
+        try {
+          await copyText(selectTxt.current);
+        } catch (e) {
+          console.error(e);
+        }
       },
     },
   ];
@@ -75,7 +82,7 @@ const SelectTxtMenu: React.FC<{ children: ReactNode }> = ({ children }) => {
       <div
         className={`fixed bottom-8 left-0 right-0 z-2 ml-a mr-a w-max select-none flex items-center transition-ease-in-out transition-property-transform transition-duration-500 ${menuStyle}`}
       >
-        <ul className="menu menu-md menu-horizontal bg-base-100 b-rounded-2 shadow-lg">
+        <ul className="menu menu-md menu-horizontal bg-base-300 b-rounded-2 shadow-lg b-1 b-coolGray b-solid">
           {menu.map(item => (
             <li key={item.title}>
               <a onClick={item.action}>

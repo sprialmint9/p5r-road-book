@@ -6,11 +6,14 @@ import './global.css';
 import { RouterProvider } from 'react-router-dom';
 import route from './router';
 import { initDb } from './service/init';
+import { ToastProvider } from './components/ToastContext';
 
 initDb();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={route} />
+    <ToastProvider>
+      <RouterProvider router={route} />
+    </ToastProvider>
   </React.StrictMode>
 );

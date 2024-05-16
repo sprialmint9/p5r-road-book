@@ -1,27 +1,6 @@
-import { useDateEventStore } from '@/store';
 import { useNavigate } from 'react-router-dom';
-
-const data = [
-  {
-    id: '1233-123-13213',
-    title: 'First Mark',
-    dayId: '213123-2133113',
-    content:
-      'This is the first mark\nThis is the first markThis\n is the first markThis is the first mark',
-  },
-  {
-    id: '123dsds-esf-3244',
-    title: 'Second Mark',
-    dayId: '213123-2133113',
-    content: 'This is the second mark',
-  },
-  {
-    id: '1233-123-13215',
-    title: 'Third Mark',
-    dayId: '213123-2133113',
-    content: 'This is the third mark',
-  },
-];
+import { useNoteStore } from '@/store/notes';
+import { useDateEventStore } from '@/store';
 
 const useNavToDate = (dayId?: string) => {
   const { quickToggle } = useDateEventStore.getState();
@@ -31,7 +10,7 @@ const useNavToDate = (dayId?: string) => {
     navigate(-1); // 返回上一页
   }
 };
-const MarkItem = (props: MarkInfo) => {
+const MarkItem = (props: NoteInfo) => {
   return (
     <div className="b-rounded-2 shadow-md bg-base-100 mb-4 p-4">
       {props.title ? <h2 className="mt-0">{props.title}</h2> : null}
@@ -47,13 +26,13 @@ const MarkItem = (props: MarkInfo) => {
 };
 
 const MarkList = () => {
+  const { notesList } = useNoteStore.getState();
   return (
     <>
-      <div>
-        {data.map(item => (
-          <MarkItem key={item.id} {...item} />
-        ))}
-      </div>
+      {notesList && notesList.map(item => <MarkItem key={item.id} {...item} />)}
+      {(!notesList || !notesList?.length) && (
+        <p className="text-center text-md c-gray p-12">暂无数据</p>
+      )}
     </>
   );
 };

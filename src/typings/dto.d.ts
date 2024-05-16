@@ -39,7 +39,7 @@ interface SelectInfo {
   summary: SummaryItem;
 }
 
-interface MarkInfo {
+interface NoteInfo {
   dayId?: string;
   title?: string;
   content: string;

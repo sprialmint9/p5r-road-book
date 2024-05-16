@@ -3,7 +3,7 @@ import DateSwipe from './components/DateSwipe';
 import EventCard from './components/EventCard';
 import Summary from './components/Summary';
 import DescModal from './components/DescModal';
-import AddModal from '../Bookmarks/components/AddModal';
+import AddModal from '../Notes/components/AddModal';
 function Home() {
   return (
     <div className="pb-safe">

@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useDateEventStore } from '@/store';
-import SelectTxtMenu from '../../Bookmarks/components/SelectTxtMenu';
+import SelectTxtMenu from '../../Notes/components/SelectTxtMenu';
 
 const EventDetail = memo((props: { list?: string[] }) => {
   if (props.list && props.list.length > 0) {

@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Home from '@/pages/Home';
-import Bookmarks from '@/pages/Bookmarks';
+import Notes from '@/pages/Notes';
 
 const route = createBrowserRouter([
   {
@@ -8,8 +8,8 @@ const route = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: '/bookmarks',
-    element: <Bookmarks />,
+    path: '/notes',
+    element: <Notes />,
   },
 ]);
 

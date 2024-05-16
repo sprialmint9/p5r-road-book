@@ -12,7 +12,7 @@ const Navbar = memo(() => {
           <label htmlFor="descModal" className="btn btn-ghost btn-sm font-size-5">
             <i className="i-material-symbols-info-outline-rounded"></i>
           </label>
-          <Link to="bookmarks" className="btn btn-ghost btn-sm font-size-5">
+          <Link to="notes" className="btn btn-ghost btn-sm font-size-5">
             <i className="i-material-symbols-collections-bookmark-outline-sharp"></i>
           </Link>
         </div>
