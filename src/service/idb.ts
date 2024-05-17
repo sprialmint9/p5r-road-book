@@ -117,3 +117,12 @@ export const getKeyByIndex = async (tableName: string, index: string, key: IDBVa
   }
   return await db.getFromIndex(tableName, index, key);
 };
+
+export async function addDbData<T>(tableName: string, data: T) {
+  if (!db) {
+    throw new Error('need init idb before');
+  }
+  const tx = db.transaction(tableName, 'readwrite');
+  await tx.store.add(data);
+  await tx.done;
+}

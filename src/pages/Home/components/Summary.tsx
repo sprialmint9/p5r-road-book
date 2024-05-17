@@ -1,7 +1,7 @@
-import { useDateEventStore } from '@/store';
+import { useAllStore } from '@/store';
 
 const Summary = () => {
-  const summaryInfo = useDateEventStore(state => state.selectInfo?.summary || ({} as SummaryItem));
+  const summaryInfo = useAllStore(state => state.selectInfo?.summary || ({} as SummaryItem));
   return (
     <>
       <input type="checkbox" id="summaryModal" className="modal-toggle" />

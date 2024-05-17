@@ -13,8 +13,8 @@ const Toast: React.FC<ToastProps> = ({ message, type }) => {
     info: 'i-material-symbols-info-outline',
   };
   return (
-    <div className={`text-center max-w-60 alert alert-${type}`}>
-      <i className={iconMap[type] + ' lg:text-xl text-10'}></i>
+    <div className={`text-center max-w-60 shadow-2xl alert alert-${type} b-rounded-2`}>
+      <i className={iconMap[type] + ' sm:text-xl text-10'}></i>
       <span>{message}</span>
     </div>
   );

@@ -1,8 +1,10 @@
 import SearchBar from './components/SearchBar';
 import MarkList from './components/MarkList';
 import AddModal from './components/AddModal';
+import { useAllStore } from '@/store';
 
-function Home() {
+function Notes() {
+  useAllStore.getState().getNotesList();
   return (
     <div className="pb-safe">
       <SearchBar />
@@ -14,4 +16,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Notes;

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { useDateEventStore } from '@/store';
+import { useAllStore } from '@/store';
 import SelectTxtMenu from '../../Notes/components/SelectTxtMenu';
 
 const EventDetail = memo((props: { list?: string[] }) => {
@@ -17,7 +17,7 @@ const EventDetail = memo((props: { list?: string[] }) => {
 });
 
 const EventCard = memo(() => {
-  const dayInfo = useDateEventStore(state => state.selectInfo?.info || ({} as DayItem));
+  const dayInfo = useAllStore(state => state.selectInfo?.info || ({} as DayItem));
   return (
     <SelectTxtMenu>
       <div className="collapse bg-base-100 mb-4 b-rounded-2 shadow-md collapse-plus">

@@ -1,19 +1,24 @@
 import React, { useRef, useState, useEffect, ReactNode } from 'react';
 import { copyText } from '@/utils';
-import { useToast } from '@/hooks';
+import { useToast, useAddModalControl } from '@/hooks';
+import { useAllStore } from '@/store';
+
 const SelectTxtMenu: React.FC<{ children: ReactNode }> = ({ children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [showMenu, setShowMenu] = useState(false);
   const [menuStyle, setMenuStyle] = useState('translate-y-50vh');
   const selectTxt = useRef('');
   const { showToast } = useToast();
+  const dayId = useAllStore(state => state.selectInfo?.dayId);
+  const { setAddModalControl } = useAddModalControl();
   const menu = [
     {
       title: '收藏',
       icon: 'i-material-symbols-bookmark-add-outline-sharp',
       action: () => {
-        console.log('收藏');
-        showToast('收藏成功', 'success');
+        useAllStore.getState().setSelectText(selectTxt.current);
+        dayId && useAllStore.getState().setCurrentDayId(dayId);
+        setAddModalControl(true);
       },
     },
     {
@@ -22,8 +27,10 @@ const SelectTxtMenu: React.FC<{ children: ReactNode }> = ({ children }) => {
       action: async () => {
         try {
           await copyText(selectTxt.current);
+          showToast('复制成功', 'success');
         } catch (e) {
           console.error(e);
+          showToast('复制失败', 'error');
         }
       },
     },

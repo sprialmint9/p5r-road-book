@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useDateEventStore } from '@/store';
+import { useAllStore } from '@/store';
 import DaySelect from './DaySelect';
 import MonthSelect from './MonthSelect';
 
 const DateSwipe = () => {
-  const dayInfo = useDateEventStore(state => state.selectInfo?.info || ({} as DayItem));
-  const quickToggle = useDateEventStore(state => state.quickToggle);
+  const dayInfo = useAllStore(state => state.selectInfo?.info || ({} as DayItem));
+  const quickToggle = useAllStore(state => state.quickToggle);
   const [stepState, setStepState] = useState([false, false]);
 
   useEffect(() => {

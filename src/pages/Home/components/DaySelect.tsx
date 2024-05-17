@@ -1,10 +1,10 @@
-import { useDateEventStore } from '@/store';
+import { useAllStore } from '@/store';
 
 const DaySelect = () => {
   // hook 内使用了useRef和 useEffect，所以不需要再次定义
-  const selectedDay = useDateEventStore(state => state.selectInfo?.dayId || '');
-  const days = useDateEventStore(state => state.dateIndexDays || []);
-  const setSelectInfoItem = useDateEventStore(state => state.setSelectInfoItem);
+  const selectedDay = useAllStore(state => state.selectInfo?.dayId || '');
+  const days = useAllStore(state => state.dateIndexDays || []);
+  const setSelectInfoItem = useAllStore(state => state.setSelectInfoItem);
   const handleSelectDay = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const dayId = e.target.value;
     setSelectInfoItem('dayId', dayId);
