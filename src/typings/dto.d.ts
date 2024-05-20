@@ -44,4 +44,6 @@ interface NoteInfo {
   title?: string;
   content: string;
   id: string;
+  updateTime?: number;
+  isDelete?: boolean;
 }

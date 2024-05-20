@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, ReactNode } from 'react';
 import { copyText } from '@/utils';
-import { useToast, useAddModalControl } from '@/hooks';
+import { useToast } from '@/hooks';
 import { useAllStore } from '@/store';
 
 const SelectTxtMenu: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -10,7 +10,7 @@ const SelectTxtMenu: React.FC<{ children: ReactNode }> = ({ children }) => {
   const selectTxt = useRef('');
   const { showToast } = useToast();
   const dayId = useAllStore(state => state.selectInfo?.dayId);
-  const { setAddModalControl } = useAddModalControl();
+  const { AddModalControl } = useAllStore();
   const menu = [
     {
       title: '收藏',
@@ -18,7 +18,7 @@ const SelectTxtMenu: React.FC<{ children: ReactNode }> = ({ children }) => {
       action: () => {
         useAllStore.getState().setSelectText(selectTxt.current);
         dayId && useAllStore.getState().setCurrentDayId(dayId);
-        setAddModalControl(true);
+        AddModalControl(true);
       },
     },
     {
@@ -89,7 +89,7 @@ const SelectTxtMenu: React.FC<{ children: ReactNode }> = ({ children }) => {
       <div
         className={`fixed bottom-8 left-0 right-0 z-2 ml-a mr-a w-max select-none flex items-center transition-ease-in-out transition-property-transform transition-duration-500 ${menuStyle}`}
       >
-        <ul className="menu menu-md menu-horizontal bg-base-300 b-rounded-2 shadow-lg b-1 b-coolGray b-solid">
+        <ul className="menu menu-md menu-horizontal bg-base-200 b-rounded-2 shadow-lg b-1 b-coolGray b-solid">
           {menu.map(item => (
             <li key={item.title}>
               <a onClick={item.action}>

@@ -8,15 +8,3 @@ export const useToast = () => {
   }
   return context;
 };
-
-export const useAddModalControl = () => {
-  const addMarkModal = document.getElementById('addMarkModal') as HTMLInputElement | null;
-  return {
-    addMarkModal,
-    setAddModalControl: (flag: boolean) => {
-      if (addMarkModal) {
-        addMarkModal.checked = flag;
-      }
-    },
-  };
-};

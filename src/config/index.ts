@@ -51,6 +51,12 @@ export const dbConfig = {
         keyPath: 'id',
         autoIncrement: false,
       },
+      index: [
+        {
+          name: 'updateTime',
+          indexName: 'updateTime',
+        },
+      ],
     },
   ],
 };

@@ -126,3 +126,19 @@ export async function addDbData<T>(tableName: string, data: T) {
   await tx.store.add(data);
   await tx.done;
 }
+export async function putDbData<T>(tableName: string, data: T) {
+  if (!db) {
+    throw new Error('need init idb before');
+  }
+  const tx = db.transaction(tableName, 'readwrite');
+  await tx.store.put(data);
+  await tx.done;
+}
+export async function deleteDbData(tableName: string, key: IDBKeyRange | IDBValidKey) {
+  if (!db) {
+    throw new Error('need init idb before');
+  }
+  const tx = db.transaction(tableName, 'readwrite');
+  await tx.store.delete(key);
+  await tx.done;
+}

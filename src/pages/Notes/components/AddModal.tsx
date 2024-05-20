@@ -1,11 +1,12 @@
 import { ChangeEvent, FC, FormEvent } from 'react';
 import { useAllStore } from '@/store';
-import { useToast, useAddModalControl } from '@/hooks';
+import { useToast } from '@/hooks';
 const AddModal: FC = () => {
-  const { addNote, setFormTitle, setSelectText, resetForm } = useAllStore.getState();
+  const { addNote, setFormTitle, setSelectText, resetForm, AddModalControl } =
+    useAllStore.getState();
   const noteForm = useAllStore(state => state.noteForm);
+  const isShowAddModal = useAllStore(state => state.isShowAddModal);
   const { showToast } = useToast();
-  const { setAddModalControl } = useAddModalControl();
   const handleFromSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -14,14 +15,21 @@ const AddModal: FC = () => {
       return;
     }
     await addNote();
-    setAddModalControl(false);
-    showToast('添加成功', 'success');
+    AddModalControl(false);
+    showToast('操作成功', 'success');
     return false;
   };
   const handleModalToggle = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.currentTarget.checked) {
       resetForm();
     }
+    AddModalControl(false);
+  };
+  const handleTitleInput = (e: FormEvent<HTMLInputElement>) => {
+    setFormTitle(e.currentTarget.value);
+  };
+  const handleContentInput = (e: FormEvent<HTMLTextAreaElement>) => {
+    setSelectText(e.currentTarget.value);
   };
   return (
     <>
@@ -29,6 +37,7 @@ const AddModal: FC = () => {
         type="checkbox"
         id="addMarkModal"
         className="modal-toggle"
+        checked={isShowAddModal}
         onChange={e => handleModalToggle(e)}
       />
       <div className="modal sm:modal-middle modal-bottom">
@@ -41,27 +50,23 @@ const AddModal: FC = () => {
                 type="text"
                 placeholder="标题"
                 autoComplete="off"
-                value={noteForm.title}
-                onInput={e => {
-                  const target = e.target as HTMLInputElement;
-                  setFormTitle(target.value);
-                }}
+                value={noteForm.title || ''}
+                onInput={e => handleTitleInput(e)}
                 className="input input-bordered input-md w-full font-family-uni"
               />
             </div>
             <div className="form-control mb-4">
               <textarea
                 name="content"
-                value={noteForm.content}
+                value={noteForm.content || ''}
                 className="textarea textarea-bordered textarea-md h-40 w-full font-family-uni"
-                onInput={e => {
-                  const target = e.target as HTMLTextAreaElement;
-                  setSelectText(target.value);
-                }}
+                onInput={e => handleContentInput(e)}
                 placeholder="内容"
               ></textarea>
             </div>
-            {noteForm.dayId && <div className="text-xs c-gray mb-4">DayId: {noteForm.dayId}</div>}
+            {noteForm.dayId && (
+              <div className="text-xs c-gray mb-4 break-words">DayId: {noteForm.dayId}</div>
+            )}
           </div>
           <div className="modal-action mt-2 block">
             <button type="submit" className="btn btn-block btn-md btn-neutral">
