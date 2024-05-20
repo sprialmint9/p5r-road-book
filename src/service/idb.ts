@@ -9,6 +9,7 @@ type InsertData =
   | SummaryItem
   | DateIndexModel
   | InsertData[]
+  | NoteInfo[]
   | Record<string | number, InsertData[]>;
 type DBInstance = IDBPDatabase<unknown> | null | undefined;
 

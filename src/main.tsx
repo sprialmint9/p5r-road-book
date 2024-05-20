@@ -7,7 +7,6 @@ import { RouterProvider } from 'react-router-dom';
 import route from './router';
 import { initDb } from './service/init';
 import { ToastProvider } from './components/ToastContext';
-
 (async () => {
   await initDb();
   ReactDOM.createRoot(document.getElementById('root')!).render(
