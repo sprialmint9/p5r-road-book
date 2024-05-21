@@ -5,7 +5,7 @@ import { useToast } from '@/hooks';
 const DropMenu = (props: NoteInfo) => {
   const navigate = useNavigate();
   const { showToast } = useToast();
-  const { quickToggle, editNote, removeNote, AddModalControl } = useAllStore.getState();
+  const { quickToggle, editNote, logicRemoveNote, AddModalControl } = useAllStore.getState();
   const navToDate = (dayId?: string) => {
     if (dayId) {
       quickToggle(dayId);
@@ -17,11 +17,11 @@ const DropMenu = (props: NoteInfo) => {
     AddModalControl(true);
   };
   const handleRemoveNote = (props: NoteInfo) => {
-    removeNote(props.id);
+    logicRemoveNote(props);
     showToast('操作成功', 'success');
   };
   return (
-    <div className="absolute top-0 right-0 dropdown dropdown-bottom dropdown-end">
+    <div className="absolute top-1 right-1 dropdown dropdown-bottom dropdown-end">
       <label tabIndex={0} className="btn btn-ghost btn-sm font-size-5 pl-2 pr-2 b-rounded-2">
         <i className="i-material-symbols-more-horiz"></i>
       </label>

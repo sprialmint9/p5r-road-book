@@ -1,4 +1,4 @@
-import { openDB } from 'idb';
+import { openDB, deleteDB } from 'idb';
 import type { IDBPDatabase } from 'idb';
 import { isArray, isObject } from '@/utils/index';
 
@@ -141,5 +141,24 @@ export async function deleteDbData(tableName: string, key: IDBKeyRange | IDBVali
   }
   const tx = db.transaction(tableName, 'readwrite');
   await tx.store.delete(key);
+  await tx.done;
+}
+
+export const currentDb = () => db;
+
+export async function deleteDb(dbName: string) {
+  await deleteDB(dbName, {
+    blocked(e, event) {
+      console.log('blocked', e, event);
+    },
+  });
+}
+
+export async function clearTable(tableName: string) {
+  if (!db) {
+    throw new Error('need init idb before');
+  }
+  const tx = db.transaction(tableName, 'readwrite');
+  await tx.store.clear();
   await tx.done;
 }

@@ -5,8 +5,18 @@ import {
   indexTableName,
   userTableName,
   noteTableName,
+  dbName,
 } from '@/config';
-import { dbInit, insertData, getAllData, getData, isEmptyTable, setKeyVal } from '@/service/idb';
+import {
+  dbInit,
+  insertData,
+  getAllData,
+  getData,
+  isEmptyTable,
+  setKeyVal,
+  currentDb,
+  deleteDb,
+} from '@/service/idb';
 import { fetchDateEvents, fetchSummary, fetchDbInfo, fetchDateIndex } from '@/api';
 import { store } from '@/store';
 
@@ -57,16 +67,18 @@ export const initDb = async (initData?: { selectInfo?: SelectInfo; noteInfos: No
 };
 
 export const rebuildDb = async () => {
-  const dbInfo = await fetchDbInfo();
-  const currentCfg = {
-    ...dbConfig,
-    version: dbInfo.version,
-  };
-  await dbInit(currentCfg);
-  const selectInfo = await getAllData<SelectInfo>(userTableName, true);
-  const noteInfos = await getAllData<NoteInfo[]>(noteTableName, true);
-  await initDb({
-    selectInfo,
-    noteInfos,
-  });
+  try {
+    const db = currentDb();
+    if (!db) return;
+    const selectInfo = await getAllData<SelectInfo>(userTableName, true);
+    const noteInfos = await getAllData<NoteInfo[]>(noteTableName, false);
+    db.close();
+    await deleteDb(dbName);
+    await initDb({
+      selectInfo,
+      noteInfos,
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };

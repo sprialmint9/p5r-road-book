@@ -1,8 +1,9 @@
 import React, { createContext, ReactNode } from 'react';
 import Toast from './Toast';
+import { v4 as uuidv4 } from 'uuid';
 
 interface ToastData {
-  id: number;
+  id: string;
   message: string;
   type: 'success' | 'error' | 'warning' | 'info';
 }
@@ -17,7 +18,7 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [toasts, setToasts] = React.useState<ToastData[]>([]);
 
   const showToast = (message: string, type: 'success' | 'error' | 'warning' | 'info') => {
-    const newToast = { id: toasts.length, message, type };
+    const newToast = { id: uuidv4(), message, type };
     const toastArr = [...toasts, newToast];
     if (toastArr.length > 3) {
       toastArr.shift();
