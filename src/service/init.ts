@@ -75,12 +75,13 @@ export const rebuildDb = async () => {
     db.close();
     await deleteDb(dbName);
     return new Promise<void>(resolve => {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         initDb({
           selectInfo,
           noteInfos,
         });
         resolve();
+        clearTimeout(timer);
       }, 2000);
     });
   } catch (e) {
