@@ -17,7 +17,7 @@ const Navbar = () => {
   };
   return (
     <>
-      <div className="navbar bg-base-100 min-h-14 fixed z-1 lg:w-1000px ml-a mr-a left-0 right-0 shadow-sm">
+      <div className="navbar bg-base-100 min-h-14 fixed z-1 lg:w-1000px lg:b-rounded-2 lg:mt-1 ml-a mr-a left-0 right-0 shadow-sm">
         <div className="btn btn-sm btn-ghost font-size-5 pl-2 pr-2 mr-1" onClick={() => navBack()}>
           <i className="i-material-symbols-arrow-back-ios-new"></i>
         </div>

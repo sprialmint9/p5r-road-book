@@ -14,7 +14,7 @@ const Toast: React.FC<ToastProps> = ({ message, type }) => {
   };
   return (
     <div className={`text-center shadow-2xl alert alert-${type} b-rounded-2`}>
-      <i className={iconMap[type] + ' sm:text-8 text-7'}></i>
+      <i className={iconMap[type] + ' sm:text-6 text-7'}></i>
       <span>{message}</span>
     </div>
   );

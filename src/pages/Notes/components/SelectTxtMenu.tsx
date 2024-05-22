@@ -19,6 +19,7 @@ const SelectTxtMenu: React.FC<{ children: ReactNode }> = ({ children }) => {
         useAllStore.getState().setSelectText(selectTxt.current);
         dayId && useAllStore.getState().setCurrentDayId(dayId);
         AddModalControl(true);
+        window.getSelection()?.empty();
       },
     },
     {
@@ -28,6 +29,7 @@ const SelectTxtMenu: React.FC<{ children: ReactNode }> = ({ children }) => {
         try {
           await copyText(selectTxt.current);
           showToast('复制成功', 'success');
+          window.getSelection()?.empty();
         } catch (e) {
           console.error(e);
           showToast('复制失败', 'error');

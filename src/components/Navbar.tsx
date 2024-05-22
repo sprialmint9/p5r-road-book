@@ -21,7 +21,7 @@ const Navbar = () => {
   };
   return (
     <>
-      <div className="navbar bg-base-100 p-2 min-h-14 fixed z-3 lg:w-1000px ml-a mr-a left-0 right-0 shadow-sm">
+      <div className="navbar bg-base-100 p-2 min-h-14 fixed z-3 lg:w-1000px lg:b-rounded-2 lg:mt-1 ml-a mr-a left-0 right-0 shadow-sm">
         <img src={logo} alt="react" className="flex-none mr-3 w-8 h-8" />
         <div className="flex-auto flex-shrink-0 text-center text-lg">P5R RoadBook</div>
         <div className="flex-none">

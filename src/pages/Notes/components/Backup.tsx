@@ -27,6 +27,7 @@ const Backup = (props: { showModal: boolean; onClose: () => void }) => {
       a.download = 'notes.json';
       a.click();
       URL.revokeObjectURL(url);
+      props.onClose();
     } else {
       showToast('暂无数据', 'warning');
     }
@@ -44,6 +45,7 @@ const Backup = (props: { showModal: boolean; onClose: () => void }) => {
           await insertData(noteTableName, notes);
           showToast('操作成功', 'success');
           useAllStore.getState().getNotesList();
+          props.onClose();
           window.scrollTo(0, 0);
         } catch (error) {
           console.log(error);
