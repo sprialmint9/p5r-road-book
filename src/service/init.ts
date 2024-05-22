@@ -74,9 +74,14 @@ export const rebuildDb = async () => {
     const noteInfos = await getAllData<NoteInfo[]>(noteTableName, false);
     db.close();
     await deleteDb(dbName);
-    await initDb({
-      selectInfo,
-      noteInfos,
+    return new Promise<void>(resolve => {
+      setTimeout(() => {
+        initDb({
+          selectInfo,
+          noteInfos,
+        });
+        resolve();
+      }, 2000);
     });
   } catch (e) {
     console.log(e);
