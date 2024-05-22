@@ -1,5 +1,6 @@
 import { memo } from 'react';
-import { useDateEventStore } from '@/store';
+import { useAllStore } from '@/store';
+import SelectTxtMenu from '../../Notes/components/SelectTxtMenu';
 
 const EventDetail = memo((props: { list?: string[] }) => {
   if (props.list && props.list.length > 0) {
@@ -16,9 +17,9 @@ const EventDetail = memo((props: { list?: string[] }) => {
 });
 
 const EventCard = memo(() => {
-  const dayInfo = useDateEventStore(state => state.selectInfo?.info || ({} as DayItem));
+  const dayInfo = useAllStore(state => state.selectInfo?.info || ({} as DayItem));
   return (
-    <>
+    <SelectTxtMenu>
       <div className="collapse bg-base-100 mb-4 b-rounded-2 shadow-md collapse-plus">
         <input type="checkbox" value={1} defaultChecked />
         <div className="collapse-title text-xl font-medium select-none">白天</div>
@@ -33,7 +34,7 @@ const EventCard = memo(() => {
           <EventDetail list={dayInfo.night} />
         </div>
       </div>
-    </>
+    </SelectTxtMenu>
   );
 });
 

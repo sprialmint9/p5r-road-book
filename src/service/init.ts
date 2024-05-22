@@ -1,9 +1,26 @@
-import { dbConfig, dayTableName, summaryTableName, indexTableName, userTableName } from '@/config';
-import { dbInit, insertData, getAllData, getData, isEmptyTable, setKeyVal } from '@/service/idb';
+import {
+  dbConfig,
+  dayTableName,
+  summaryTableName,
+  indexTableName,
+  userTableName,
+  noteTableName,
+  dbName,
+} from '@/config';
+import {
+  dbInit,
+  insertData,
+  getAllData,
+  getData,
+  isEmptyTable,
+  setKeyVal,
+  currentDb,
+  deleteDb,
+} from '@/service/idb';
 import { fetchDateEvents, fetchSummary, fetchDbInfo, fetchDateIndex } from '@/api';
 import { store } from '@/store';
 
-export const initDb = async () => {
+export const initDb = async (initData?: { selectInfo?: SelectInfo; noteInfos: NoteInfo[] }) => {
   const dbInfo = await fetchDbInfo();
   const currentCfg = {
     ...dbConfig,
@@ -17,6 +34,14 @@ export const initDb = async () => {
     await insertData(indexTableName, indexInfo);
     await insertData(dayTableName, dayData);
     await insertData(summaryTableName, summaryData);
+  }
+  if (initData) {
+    await Promise.all(
+      Object.entries(initData?.selectInfo || {}).map(([key, value]) =>
+        setKeyVal(userTableName, key, value)
+      )
+    );
+    await insertData(noteTableName, initData?.noteInfos || []);
   }
   const indexInfo = await getAllData<DateIndexModel[]>(indexTableName);
   let selectInfo = await getAllData<SelectInfo>(userTableName, true);
@@ -39,4 +64,21 @@ export const initDb = async () => {
   setState({ selectInfo });
   setState({ dateIndexMonth: indexInfo.map((v: DateIndexModel) => v.month) });
   getState().setDateIndexDays(selectInfo.monthId);
+};
+
+export const rebuildDb = async () => {
+  try {
+    const db = currentDb();
+    if (!db) return;
+    const selectInfo = await getAllData<SelectInfo>(userTableName, true);
+    const noteInfos = await getAllData<NoteInfo[]>(noteTableName, false);
+    db.close();
+    await deleteDb(dbName);
+    await initDb({
+      selectInfo,
+      noteInfos,
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };

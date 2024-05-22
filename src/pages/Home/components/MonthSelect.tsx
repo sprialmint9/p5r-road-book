@@ -1,10 +1,10 @@
-import { useDateEventStore } from '@/store';
+import { useAllStore } from '@/store';
 
 const MonthSelect = () => {
   // hook 内使用了useRef和 useEffect，所以不需要再次定义
-  const selectedMonth = useDateEventStore(state => state.selectInfo?.monthId || 0);
-  const monthList = useDateEventStore(state => state.dateIndexMonth || []);
-  const setSelectInfoItem = useDateEventStore(state => state.setSelectInfoItem);
+  const selectedMonth = useAllStore(state => state.selectInfo?.monthId || 0);
+  const monthList = useAllStore(state => state.dateIndexMonth || []);
+  const setSelectInfoItem = useAllStore(state => state.setSelectInfoItem);
   const handleSelectMonth = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const month = +e.target.value;
     setSelectInfoItem('monthId', month);

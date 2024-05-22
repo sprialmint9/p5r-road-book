@@ -9,6 +9,8 @@ export const indexTableName = 'p5r_index';
 
 export const userTableName = 'p5r_user';
 
+export const noteTableName = 'p5r_note';
+
 export const dbConfig = {
   name: 'p5r_road_book',
   version: 1,
@@ -42,6 +44,19 @@ export const dbConfig = {
     },
     {
       name: userTableName,
+    },
+    {
+      name: noteTableName,
+      option: {
+        keyPath: 'id',
+        autoIncrement: false,
+      },
+      index: [
+        {
+          name: 'updateTime',
+          indexName: 'updateTime',
+        },
+      ],
     },
   ],
 };

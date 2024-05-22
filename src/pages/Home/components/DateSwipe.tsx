@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useDateEventStore } from '@/store';
+import { useAllStore } from '@/store';
 import DaySelect from './DaySelect';
 import MonthSelect from './MonthSelect';
 
 const DateSwipe = () => {
-  const dayInfo = useDateEventStore(state => state.selectInfo?.info || ({} as DayItem));
-  const quickToggle = useDateEventStore(state => state.quickToggle);
+  const dayInfo = useAllStore(state => state.selectInfo?.info || ({} as DayItem));
+  const quickToggle = useAllStore(state => state.quickToggle);
   const [stepState, setStepState] = useState([false, false]);
 
   useEffect(() => {
@@ -41,6 +41,7 @@ const DateSwipe = () => {
         className={`flex items-center justify-center mr-a w-12 self-stretch cursor-pointer select-none font-size-5 active:bg-base-200 ${
           stepState[0] ? 'bg-base-200' : ''
         }`}
+        title="上一天"
         onClick={() => quickToggle(dayInfo.prev)}
       >
         <i className="i-material-symbols-arrow-back-ios"></i>
@@ -63,6 +64,7 @@ const DateSwipe = () => {
         className={`flex items-center justify-center ml-a w-12 cursor-pointer select-none self-stretch font-size-5 active:bg-base-200 ${
           stepState[1] ? 'bg-base-200' : ''
         }`}
+        title="下一天"
         onClick={() => quickToggle(dayInfo.next)}
       >
         <i className="i-material-symbols-arrow-forward-ios"></i>

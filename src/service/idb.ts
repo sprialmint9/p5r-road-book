@@ -1,4 +1,4 @@
-import { openDB } from 'idb';
+import { openDB, deleteDB } from 'idb';
 import type { IDBPDatabase } from 'idb';
 import { isArray, isObject } from '@/utils/index';
 
@@ -9,6 +9,7 @@ type InsertData =
   | SummaryItem
   | DateIndexModel
   | InsertData[]
+  | NoteInfo[]
   | Record<string | number, InsertData[]>;
 type DBInstance = IDBPDatabase<unknown> | null | undefined;
 
@@ -117,3 +118,47 @@ export const getKeyByIndex = async (tableName: string, index: string, key: IDBVa
   }
   return await db.getFromIndex(tableName, index, key);
 };
+
+export async function addDbData<T>(tableName: string, data: T) {
+  if (!db) {
+    throw new Error('need init idb before');
+  }
+  const tx = db.transaction(tableName, 'readwrite');
+  await tx.store.add(data);
+  await tx.done;
+}
+export async function putDbData<T>(tableName: string, data: T) {
+  if (!db) {
+    throw new Error('need init idb before');
+  }
+  const tx = db.transaction(tableName, 'readwrite');
+  await tx.store.put(data);
+  await tx.done;
+}
+export async function deleteDbData(tableName: string, key: IDBKeyRange | IDBValidKey) {
+  if (!db) {
+    throw new Error('need init idb before');
+  }
+  const tx = db.transaction(tableName, 'readwrite');
+  await tx.store.delete(key);
+  await tx.done;
+}
+
+export const currentDb = () => db;
+
+export async function deleteDb(dbName: string) {
+  await deleteDB(dbName, {
+    blocked(e, event) {
+      console.log('blocked', e, event);
+    },
+  });
+}
+
+export async function clearTable(tableName: string) {
+  if (!db) {
+    throw new Error('need init idb before');
+  }
+  const tx = db.transaction(tableName, 'readwrite');
+  await tx.store.clear();
+  await tx.done;
+}

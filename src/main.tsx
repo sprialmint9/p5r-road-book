@@ -6,11 +6,17 @@ import './global.css';
 import { RouterProvider } from 'react-router-dom';
 import route from './router';
 import { initDb } from './service/init';
-
-initDb();
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <RouterProvider router={route} />
-  </React.StrictMode>
-);
+import { ToastProvider } from './provider/ToastContext';
+import { LoadingProvider } from './provider/LoadingContext';
+(async () => {
+  await initDb();
+  ReactDOM.createRoot(document.getElementById('root')!).render(
+    <React.StrictMode>
+      <ToastProvider>
+        <LoadingProvider>
+          <RouterProvider router={route} />
+        </LoadingProvider>
+      </ToastProvider>
+    </React.StrictMode>
+  );
+})();

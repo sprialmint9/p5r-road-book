@@ -38,3 +38,14 @@ interface SelectInfo {
   info: DayItem;
   summary: SummaryItem;
 }
+
+interface NoteInfo {
+  dayId?: string;
+  title?: string;
+  content: string;
+  id: string;
+  updateTime?: number;
+  isDelete?: boolean;
+}
+
+type ToastType = 'success' | 'error' | 'info' | 'warning';
