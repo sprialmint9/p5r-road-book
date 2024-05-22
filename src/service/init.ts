@@ -82,7 +82,7 @@ export const rebuildDb = async () => {
         });
         resolve();
         clearTimeout(timer);
-      }, 2000);
+      }, 4000);
     });
   } catch (e) {
     console.log(e);
