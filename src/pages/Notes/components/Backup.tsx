@@ -44,6 +44,7 @@ const Backup = (props: { showModal: boolean; onClose: () => void }) => {
           await insertData(noteTableName, notes);
           showToast('操作成功', 'success');
           useAllStore.getState().getNotesList();
+          window.scrollTo(0, 0);
         } catch (error) {
           console.log(error);
         }
@@ -79,14 +80,14 @@ const Backup = (props: { showModal: boolean; onClose: () => void }) => {
               accept=".json"
               onChange={e => handleImportJson(e)}
             />
-            <label htmlFor="uploadJson" className="btn btn-md btn-block btn-primary mb-2">
-              <i className="i-material-symbols-fitbit-arrow-upward-sharp text-10"></i>导入
+            <label htmlFor="uploadJson" className="btn btn-md btn-block btn-primary mb-3">
+              <i className="i-material-symbols-fitbit-arrow-upward-sharp text-7"></i>导入
             </label>
             <button
               className="btn btn-md btn-block btn-success mb-2"
               onClick={() => handleExportJson()}
             >
-              <i className="i-material-symbols-fitbit-arrow-downward-sharp text-10"></i>
+              <i className="i-material-symbols-fitbit-arrow-downward-sharp text-7"></i>
               导出
             </button>
           </div>

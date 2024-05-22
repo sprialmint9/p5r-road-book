@@ -17,6 +17,7 @@ const AddModal: FC = () => {
     await addNote();
     AddModalControl(false);
     showToast('操作成功', 'success');
+    window.scrollTo(0, 0);
     return false;
   };
   const handleModalToggle = (e: ChangeEvent<HTMLInputElement>) => {

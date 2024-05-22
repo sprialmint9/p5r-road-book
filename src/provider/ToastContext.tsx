@@ -1,15 +1,15 @@
 import React, { createContext, ReactNode } from 'react';
-import Toast from './Toast';
+import Toast from '../components/Toast';
 import { v4 as uuidv4 } from 'uuid';
 
 interface ToastData {
   id: string;
   message: string;
-  type: 'success' | 'error' | 'warning' | 'info';
+  type: ToastType;
 }
 
 interface ToastContextValue {
-  showToast: (message: string, type: 'success' | 'error' | 'warning' | 'info') => void;
+  showToast: (message: string, type: ToastType) => void;
 }
 
 export const ToastContext = createContext<ToastContextValue | undefined>(undefined);
@@ -17,7 +17,7 @@ export const ToastContext = createContext<ToastContextValue | undefined>(undefin
 export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [toasts, setToasts] = React.useState<ToastData[]>([]);
 
-  const showToast = (message: string, type: 'success' | 'error' | 'warning' | 'info') => {
+  const showToast = (message: string, type: ToastType) => {
     const newToast = { id: uuidv4(), message, type };
     const toastArr = [...toasts, newToast];
     if (toastArr.length > 3) {
@@ -30,7 +30,7 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     if (toasts.length > 0) {
       const timeout = setTimeout(() => {
         setToasts(prevToasts => prevToasts.slice(1));
-      }, 3000);
+      }, 1500);
 
       return () => {
         clearTimeout(timeout);

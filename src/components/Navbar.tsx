@@ -1,16 +1,19 @@
 import logo from '@/assets/icon.svg';
 import { Link } from 'react-router-dom';
 import { rebuildDb } from '@/service/init';
-import { useToast } from '@/hooks';
+import { useToast, useLoading } from '@/hooks';
 
 const Navbar = () => {
   const { showToast } = useToast();
+  const { showLoading, hideLoading } = useLoading();
   const confirmRebuildDb = async () => {
     const result = window.confirm(
       '重建数据库会清空所有数据，但能解决一些数据上的问题，确定要继续吗？'
     );
     if (result) {
+      showLoading();
       await rebuildDb();
+      hideLoading();
       showToast('数据库重建成功', 'success');
     } else {
       // 用户点击了取消按钮

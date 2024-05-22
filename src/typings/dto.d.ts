@@ -47,3 +47,5 @@ interface NoteInfo {
   updateTime?: number;
   isDelete?: boolean;
 }
+
+type ToastType = 'success' | 'error' | 'info' | 'warning';
