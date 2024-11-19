@@ -2,8 +2,10 @@ import logo from '@/assets/icon.svg';
 import { Link } from 'react-router-dom';
 import { rebuildDb } from '@/service/init';
 import { useToast, useLoading } from '@/hooks';
+import { useAllStore } from '@/store';
 
 const Navbar = () => {
+  const dayPosition = useAllStore(state => state.dayPosition);
   const { showToast } = useToast();
   const { showLoading, hideLoading } = useLoading();
   const confirmRebuildDb = async () => {
@@ -44,6 +46,11 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
+      <progress
+        className="progress progress-error fixed z-3 w-full ml-a mr-a left-0 right-0 lg:w-1000px top-14 h-1"
+        value={dayPosition[0]}
+        max={dayPosition[1]}
+      ></progress>
     </>
   );
 };

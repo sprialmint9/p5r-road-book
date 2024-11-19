@@ -1,11 +1,13 @@
 import { SliceCreator } from './slice';
 import { produce } from 'immer';
 import { indexTableName, dayTableName, summaryTableName, userTableName } from '@/config';
-import { getData, getKeyByIndex, setKeyVal } from '@/service/idb';
+import { getAllData, getData, getKeyByIndex, setKeyVal } from '@/service/idb';
 
 interface DayInfoState {
   dateIndexMonth: number[] | null;
   dateIndexDays: DayIndexModel[] | null;
+  allDateIndex: string[] | null;
+  dayPosition: [number, number];
   selectInfo: Partial<SelectInfo | null>;
 }
 
@@ -16,6 +18,8 @@ interface DayInfoActions {
   quickToggle: (dayId: string) => void;
   setSelectInfoItem<K extends keyof SelectInfo>(key: K, value: SelectInfo[K]): void;
   updateDbInfo: () => void;
+  setAllDateIndex: () => void;
+  setDayPosition: (dayId: string) => void;
 }
 
 export type DayInfoSlice = DayInfoState & DayInfoActions;
@@ -23,6 +27,8 @@ export type DayInfoSlice = DayInfoState & DayInfoActions;
 export const dayInfoStore: SliceCreator<keyof DayInfoSlice> = (set, get) => ({
   dateIndexMonth: null,
   dateIndexDays: null,
+  allDateIndex: null,
+  dayPosition: [0, 1],
   selectInfo: null,
   setDateIndexDays: async monthId => {
     const currentIndex = await getData(indexTableName, monthId);
@@ -58,7 +64,34 @@ export const dayInfoStore: SliceCreator<keyof DayInfoSlice> = (set, get) => ({
         state.selectInfo.dayId = dayId;
       })
     );
+    get().setDayPosition(dayId);
     get().updateDbInfo();
+  },
+  setDayPosition(dayId) {
+    set(
+      produce((state: DayInfoState) => {
+        if (!dayId) return;
+        let dayPosition = state.allDateIndex?.findIndex(v => v === dayId) || 0;
+        if (dayPosition === -1) {
+          dayPosition = 0;
+        }
+        state.dayPosition = [dayPosition, state.allDateIndex?.length || 1];
+      })
+    );
+  },
+  async setAllDateIndex() {
+    const info = await getAllData<DateIndexModel[]>(indexTableName);
+    const dayToPosition: string[] = [];
+    info.forEach(month => {
+      month.days.forEach(dayEntry => {
+        dayToPosition.push(dayEntry.id);
+      });
+    });
+    set(
+      produce((state: DayInfoState) => {
+        state.allDateIndex = dayToPosition;
+      })
+    );
   },
   quickToggle: async (dayId: string) => {
     await get().setDayInfo(dayId);

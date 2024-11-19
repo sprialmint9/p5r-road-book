@@ -63,7 +63,9 @@ export const initDb = async (initData?: { selectInfo?: SelectInfo; noteInfos: No
   const { setState, getState } = store;
   setState({ selectInfo });
   setState({ dateIndexMonth: indexInfo.map((v: DateIndexModel) => v.month) });
-  getState().setDateIndexDays(selectInfo.monthId);
+  await getState().setAllDateIndex();
+  await getState().setDateIndexDays(selectInfo.monthId);
+  await getState().setDayPosition(selectInfo.dayId);
 };
 
 export const rebuildDb = async () => {
