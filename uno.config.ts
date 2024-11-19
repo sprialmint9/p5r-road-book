@@ -22,7 +22,7 @@ export default defineConfig({
     presetTypography(),
     presetIcons(),
     presetDaisy({
-      themes: false,
+      themes: ['dark'],
     }),
     presetSafeArea(),
   ],
